@@ -1,0 +1,306 @@
+[gd_scene format=3 uid="uid://dqxwwoifgcve6"]
+
+[ext_resource type="Texture2D" uid="uid://y2u7o7k7487h" path="res://Assets/Art/Cute_Fantasy_Free/Player/Player.png" id="1_04w1f"]
+[ext_resource type="Script" uid="uid://cmqr8btdqck35" path="res://Scripts/rythm_demo.gd" id="1_uj3k7"]
+[ext_resource type="Texture2D" uid="uid://8th0giswqmul" path="res://Assets/Art/Cute_Fantasy_Free/Enemies/Skeleton.png" id="2_uj3k7"]
+[ext_resource type="AudioStream" uid="uid://gj5m5yo48r8h" path="res://Assets/Tracks/Crazy Train.mp3" id="4_6uhko"]
+[ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="5_yew1v"]
+
+[sub_resource type="Gradient" id="Gradient_57qmd"]
+offsets = PackedFloat32Array(0, 0.23317307)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yf5fn"]
+frequency = 0.1505
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
+width = 640
+height = 360
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_yf5fn")
+color_ramp = SubResource("Gradient_57qmd")
+bump_strength = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uhko"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yew1v"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkudt"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a16r2"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7pr1"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47usn"]
+atlas = ExtResource("1_04w1f")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uhko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yew1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkudt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a16r2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7pr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47usn")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04q6e"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h120"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0o6h"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0irkx"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3t08"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pibp"]
+atlas = ExtResource("2_uj3k7")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pdr55"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04q6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3h120")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0o6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0irkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3t08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pibp")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0.6, 0.6, 0.6, 0.13725491)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_yf5fn"]
+color = Color(0.9577182, 0.9577182, 0.9577181, 1)
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_57qmd"]
+color = Color(0.34021118, 0.7196759, 0.80852395, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3gngh"]
+color = Color(0, 0, 0, 0)
+vertical = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_yf5fn"]
+font = ExtResource("5_yew1v")
+font_color = Color(0.5802277, 0.58022773, 0.58022773, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_57qmd"]
+font = ExtResource("5_yew1v")
+font_size = 24
+
+[node name="Rythm_Demo" type="Node2D" unique_id=1085173092]
+script = ExtResource("1_uj3k7")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=244154938]
+offset_right = 640.0
+offset_bottom = 360.0
+texture = SubResource("NoiseTexture2D_g4v7s")
+stretch_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=269375050]
+position = Vector2(48, 180)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"Idle"
+frame_progress = 0.9089969
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=28544366]
+position = Vector2(592, 180)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_pdr55")
+animation = &"Idle"
+frame_progress = 0.007230196
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=731752242]
+stream = ExtResource("4_6uhko")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145622721]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=469296540]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer" unique_id=1960737160]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=558883212]
+layout_mode = 2
+theme_override_constants/separation = 84
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=266176063]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=1763020705]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=1490783422]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=1108120802]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VSeparator5" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=2037956940]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VSeparator6" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=514598044]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=859285037]
+layout_mode = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1693982611]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1329529992]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_57qmd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1676833883]
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=213361636]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=390415309]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "D"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=693620559]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1667210592]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "F"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=646557702]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=2078218803]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "H"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1072950872]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="Label4" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1843735603]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "J"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator5" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=331770907]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="Label5" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=962085678]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "K"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator6" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1210208708]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1151708352]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer" unique_id=509792262]
+layout_mode = 2
+text = "Press ENTER to start"
+label_settings = SubResource("LabelSettings_57qmd")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -14,6 +14,6 @@ dest_files=["res://.godot/imported/Crazy Train.mp3-60abbb352d4bce635fb6371fdaa56
 
 loop=false
 loop_offset=0
-bpm=0
-beat_count=0
+bpm=138.0
+beat_count=660
 bar_beats=4
