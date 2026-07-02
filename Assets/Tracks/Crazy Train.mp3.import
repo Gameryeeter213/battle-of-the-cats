@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gj5m5yo48r8h"
+path="res://.godot/imported/Crazy Train.mp3-60abbb352d4bce635fb6371fdaa56402.mp3str"
+
+[deps]
+
+source_file="res://Assets/Tracks/Crazy Train.mp3"
+dest_files=["res://.godot/imported/Crazy Train.mp3-60abbb352d4bce635fb6371fdaa56402.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
