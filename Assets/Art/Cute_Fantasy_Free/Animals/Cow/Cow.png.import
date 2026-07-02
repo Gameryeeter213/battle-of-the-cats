@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coesriugnp0av"
-path="res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"
+uid="uid://blxd1opyuqgbp"
+path="res://.godot/imported/Cow.png-f18b27b2032fa87e93e8c7524139e7b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"]
+source_file="res://Assets/Art/Cute_Fantasy_Free/Animals/Cow/Cow.png"
+dest_files=["res://.godot/imported/Cow.png-f18b27b2032fa87e93e8c7524139e7b6.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

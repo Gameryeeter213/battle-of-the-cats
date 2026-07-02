@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coesriugnp0av"
-path="res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"
+uid="uid://cfbxvbx3km7ke"
+path="res://.godot/imported/Quit  col_Button.png-68516cff988301b9c1ca1e8193a3bead.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"]
+source_file="res://Assets/Art/Menu Buttons/Large Buttons/Colored Large Buttons/Quit  col_Button.png"
+dest_files=["res://.godot/imported/Quit  col_Button.png-68516cff988301b9c1ca1e8193a3bead.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

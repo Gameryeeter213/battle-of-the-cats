@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://duoqpoumqhxnw"]
+
+[sub_resource type="Gradient" id="Gradient_erv1k"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_erv1k")
+width = 640
+height = 360
+use_hdr = true
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Main Menu" type="Control" unique_id=596047698]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1921394827]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_g4v7s")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=869513233]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 160
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1566071495]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=477232327]
+layout_mode = 2
+text = "Battle of the Kitties"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1641306074]
+layout_mode = 2
+theme_override_constants/margin_left = 352
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 352
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=2017872874]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=34452688]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play"

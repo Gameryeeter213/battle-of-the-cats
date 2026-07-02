@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coesriugnp0av"
-path="res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"
+uid="uid://d0ivuy2s8ckdj"
+path="res://.godot/imported/Back Button.png-ea064876097608ca773f8ef7f61a36ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"]
+source_file="res://Assets/Art/Menu Buttons/Large Buttons/Large Buttons/Back Button.png"
+dest_files=["res://.godot/imported/Back Button.png-ea064876097608ca773f8ef7f61a36ad.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

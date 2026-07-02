@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coesriugnp0av"
-path="res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"
+uid="uid://br4h8ducycnw1"
+path="res://.godot/imported/X col_Square Button.png-00c14ce3cd931a66c51be60b14af5d03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-18c1c52c6ac344ff8cf82551d72cfecd.ctex"]
+source_file="res://Assets/Art/Menu Buttons/Square Buttons/Colored Square Buttons/X col_Square Button.png"
+dest_files=["res://.godot/imported/X col_Square Button.png-00c14ce3cd931a66c51be60b14af5d03.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
