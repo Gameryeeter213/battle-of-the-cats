@@ -37,7 +37,7 @@ var time_delay :float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Rhythm.reset()
-	$AnimatedSprite2D.play()
+	$AnimatedSprite2D.play("Idle "+Global.cat_color)
 	$AnimatedSprite2D2.play()
 	load_song("res://Assets/Tracks/Crazy Train.JSON")
 	instrument = "Guitar"

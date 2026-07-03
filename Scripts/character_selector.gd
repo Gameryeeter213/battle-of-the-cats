@@ -74,3 +74,8 @@ func apply_focus() -> void:
 			targets[i]["pos"] = Vector2(320 + offset, 180)
 			targets[i]["scale"] = Vector2(3, 3)
 	CatName.text = characters[index]
+
+
+func _on_button_pressed() -> void:
+	Global.cat_color = characters[index]
+	get_tree().change_scene_to_file("res://Scenes/map.tscn")

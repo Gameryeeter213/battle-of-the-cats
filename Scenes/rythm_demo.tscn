@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://dqxwwoifgcve6"]
 
-[ext_resource type="Texture2D" uid="uid://y2u7o7k7487h" path="res://Assets/Art/Cute_Fantasy_Free/Player/Player.png" id="1_04w1f"]
 [ext_resource type="Script" uid="uid://cmqr8btdqck35" path="res://Scripts/Rhythm/rythm_demo.gd" id="1_uj3k7"]
+[ext_resource type="Texture2D" uid="uid://o8tx33004s3p" path="res://Assets/Art/Cat Sprites/Calico sprite.png" id="2_j0o6h"]
 [ext_resource type="Texture2D" uid="uid://8th0giswqmul" path="res://Assets/Art/Cute_Fantasy_Free/Enemies/Skeleton.png" id="2_uj3k7"]
+[ext_resource type="Texture2D" uid="uid://hdf5cthy455k" path="res://Assets/Art/Cat Sprites/Orange Sprite.png" id="3_0irkx"]
 [ext_resource type="AudioStream" uid="uid://gj5m5yo48r8h" path="res://Assets/Tracks/Crazy Train.mp3" id="4_6uhko"]
+[ext_resource type="Texture2D" uid="uid://css8t4i0bvnql" path="res://Assets/Art/Cat Sprites/White Sprite.png" id="4_p3t08"]
 [ext_resource type="Texture2D" uid="uid://j161s6gi8u2f" path="res://Assets/Art/Casualclothes1-0.png" id="5_xkudt"]
 [ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="5_yew1v"]
 [ext_resource type="Shader" uid="uid://yvjny6dct1ba" path="res://Shaders/Spacebar.gdshader" id="7_h7pr1"]
@@ -27,53 +29,93 @@ noise = SubResource("FastNoiseLite_yf5fn")
 color_ramp = SubResource("Gradient_57qmd")
 bump_strength = 32.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6uhko"]
-atlas = ExtResource("1_04w1f")
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1huj"]
+atlas = ExtResource("2_j0o6h")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yew1v"]
-atlas = ExtResource("1_04w1f")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtmm4"]
+atlas = ExtResource("2_j0o6h")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xkudt"]
-atlas = ExtResource("1_04w1f")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tevl1"]
+atlas = ExtResource("2_j0o6h")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a16r2"]
-atlas = ExtResource("1_04w1f")
-region = Rect2(96, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8d6w"]
+atlas = ExtResource("3_0irkx")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7pr1"]
-atlas = ExtResource("1_04w1f")
-region = Rect2(128, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp2qb"]
+atlas = ExtResource("3_0irkx")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_47usn"]
-atlas = ExtResource("1_04w1f")
-region = Rect2(160, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0ap7"]
+atlas = ExtResource("3_0irkx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit4a"]
+atlas = ExtResource("4_p3t08")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6twy"]
+atlas = ExtResource("4_p3t08")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irl6f"]
+atlas = ExtResource("4_p3t08")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6uhko")
+"texture": SubResource("AtlasTexture_j1huj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yew1v")
+"texture": SubResource("AtlasTexture_wtmm4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xkudt")
+"texture": SubResource("AtlasTexture_tevl1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a16r2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h7pr1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_47usn")
+"texture": SubResource("AtlasTexture_wtmm4")
 }],
 "loop": 1,
-"name": &"Idle",
+"name": &"Idle Calico",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8d6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp2qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0ap7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp2qb")
+}],
+"loop": 1,
+"name": &"Idle Orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hit4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6twy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irl6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6twy")
+}],
+"loop": 1,
+"name": &"Idle White",
 "speed": 5.0
 }]
 
@@ -293,10 +335,9 @@ stretch_mode = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=269375050]
 position = Vector2(48, 180)
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"Idle"
-frame_progress = 0.25627977
+animation = &"Idle Orange"
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=28544366]
 position = Vector2(592, 180)

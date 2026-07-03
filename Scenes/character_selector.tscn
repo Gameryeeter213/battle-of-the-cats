@@ -132,6 +132,30 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
 font = ExtResource("6_kveib")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0, 0, 0, 0.2627451)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pa3tc"]
+bg_color = Color(0, 0, 0, 0.60784316)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6eeq"]
+bg_color = Color(0, 0, 0, 0.47058824)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 20
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
 shader = ExtResource("7_pa3tc")
 shader_parameter/aberration_x = 0.010000047974999982
@@ -215,6 +239,25 @@ label_settings = SubResource("LabelSettings_g4v7s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Button" type="Button" parent="." unique_id=983270829]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -85.0
+offset_right = 74.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_kveib")
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pa3tc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g6eeq")
+text = "Select"
+
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2130945356]
 visibility_layer = 4
 material = SubResource("ShaderMaterial_g4v7s")
@@ -228,3 +271,4 @@ mouse_filter = 2
 
 [connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

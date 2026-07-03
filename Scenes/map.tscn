@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://mmspysvo556k"]
+
+[ext_resource type="PackedScene" uid="uid://dejg1anxoxlwu" path="res://Scenes/player.tscn" id="2_p3ir5"]
+[ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="3_myvm1"]
+[ext_resource type="PackedScene" uid="uid://cgt45irurk6v2" path="res://Scenes/enemy.tscn" id="3_p3ir5"]
+[ext_resource type="Texture2D" uid="uid://coesriugnp0av" path="res://icon.svg" id="3_q0mm3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(226, 647)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q0mm3"]
+shader = ExtResource("3_myvm1")
+shader_parameter/aberration_x = 0.010000047974999982
+shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 15.0
+shader_parameter/scanlines_intensity = 0.055
+shader_parameter/flicker_speed = 30.0
+shader_parameter/flicker_intensity = 0.0150000007125
+shader_parameter/color_offset = 0.5
+shader_parameter/blurVHS = 0.3
+shader_parameter/mixrate = 0.550000026125
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g4v7s"]
+vertices = PackedVector2Array(611.1094, 367.97656, -8.8515625, 367.0078, -3.140625, -34, 615.8828, -34)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 0, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-13, -44, 626, -44, 621, 378, -19, 377)])
+sample_partition_type = 1
+
+[node name="Map" type="Node2D" unique_id=1658908107]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=823066927]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -37.0
+offset_right = 622.0
+offset_bottom = 368.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_q0mm3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=125103473]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1672640987]
+position = Vector2(737, 160.5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=2075555944]
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1778897010]
+position = Vector2(489, -304.00003)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=597801631]
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=148487291]
+position = Vector2(151.99998, 309)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=357417215]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=1814182712]
+position = Vector2(-126, 128)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Player" parent="." unique_id=1390074635 instance=ExtResource("2_p3ir5")]
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=111495049]
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera2D" unique_id=895878606]
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D/CanvasLayer" unique_id=1842553142]
+visibility_layer = 4
+material = SubResource("ShaderMaterial_q0mm3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Enemy" parent="." unique_id=903336004 instance=ExtResource("3_p3ir5")]
+position = Vector2(453, 210)
+scale = Vector2(1.5, 1.5)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=276000099]
+navigation_polygon = SubResource("NavigationPolygon_g4v7s")

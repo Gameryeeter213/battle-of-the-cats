@@ -31,6 +31,10 @@ window/size/viewport_height=360
 window/size/mode=2
 window/stretch/mode="viewport"
 
+[global_group]
+
+Enemy="Enemies"
+
 [input]
 
 "Lane 0"={

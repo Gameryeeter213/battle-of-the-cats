@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cgt45irurk6v2"]
+
+[ext_resource type="Script" uid="uid://dti6jr705141l" path="res://enemy.gd" id="1_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://8th0giswqmul" path="res://Assets/Art/Cute_Fantasy_Free/Enemies/Skeleton.png" id="2_afpow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("2_afpow")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+atlas = ExtResource("2_afpow")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("2_afpow")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
+atlas = ExtResource("2_afpow")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
+atlas = ExtResource("2_afpow")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uf12"]
+atlas = ExtResource("2_afpow")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0830c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dp5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auwsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8uf12")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po0sg"]
+size = Vector2(11, 17)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=903336004 groups=["Enemy"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_1f0kj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=318052967]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.6084868
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1361521388]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_po0sg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=888658434]
+
+[node name="Timer" type="Timer" parent="." unique_id=1159004557]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
