@@ -14,8 +14,35 @@ height = 24
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
+[sub_resource type="Gradient" id="Gradient_ejx3s"]
+colors = PackedColorArray(0, 0.5647465, 5.7756904e-07, 1, 0.09803922, 0.47058824, 0.09803922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf5fn"]
+gradient = SubResource("Gradient_ejx3s")
+width = 86
+height = 1
+use_hdr = true
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_8o1l4"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_57qmd"]
+gradient = SubResource("Gradient_8o1l4")
+width = 86
+height = 12
+fill_from = Vector2(0, 1)
+
 [node name="Block" type="Node2D" unique_id=113044753]
 script = ExtResource("1_ejx3s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1386099797]
 texture = SubResource("GradientTexture2D_g4v7s")
+
+[node name="TextureRect" type="Sprite2D" parent="." unique_id=1611430697]
+position = Vector2(0, -21)
+texture = SubResource("GradientTexture2D_yf5fn")
+
+[node name="TextureRect2" type="Sprite2D" parent="." unique_id=1464621017]
+position = Vector2(0, -45)
+texture = SubResource("GradientTexture2D_57qmd")

@@ -8,7 +8,14 @@ var perfects :int = 0
 var combo :int = 0
 var combo_mult :int = 1
 var best_combo :int = 0
-
+var miss_shake :float = 0.0
+var active_hold = {
+	0: null,
+	1: null,
+	2: null,
+	3: null,
+	4: null
+}
 var lane_queue := {
 	0: [],
 	1: [],
@@ -36,10 +43,18 @@ func reset():
 	combo = 0
 	combo_mult = 1
 	best_combo = 0
+	miss_shake = 0.0
 	lane_queue = {
 	0: [],
 	1: [],
 	2: [],
 	3: [],
 	4: []
+	}
+	active_hold = {
+	0: null,
+	1: null,
+	2: null,
+	3: null,
+	4: null
 	}

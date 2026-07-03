@@ -6,6 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://gj5m5yo48r8h" path="res://Assets/Tracks/Crazy Train.mp3" id="4_6uhko"]
 [ext_resource type="Texture2D" uid="uid://j161s6gi8u2f" path="res://Assets/Art/Casualclothes1-0.png" id="5_xkudt"]
 [ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="5_yew1v"]
+[ext_resource type="Shader" uid="uid://yvjny6dct1ba" path="res://Shaders/Spacebar.gdshader" id="7_h7pr1"]
+[ext_resource type="Texture2D" uid="uid://drrrsi1ehjjd4" path="res://Assets/Art/Icons/spacebar-i6mhek4tz9q9xag6yqctg.png" id="8_47usn"]
+[ext_resource type="Shader" uid="uid://da2e1jalvpu07" path="res://Shaders/transition.gdshader" id="9_47usn"]
 
 [sub_resource type="Gradient" id="Gradient_57qmd"]
 offsets = PackedFloat32Array(0, 0.23317307)
@@ -16,8 +19,8 @@ frequency = 0.1505
 metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
-width = 640
-height = 360
+width = 1280
+height = 720
 generate_mipmaps = false
 noise = SubResource("FastNoiseLite_yf5fn")
 color_ramp = SubResource("Gradient_57qmd")
@@ -123,6 +126,34 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_h7pr1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_h7pr1")
+
+[sub_resource type="Gradient" id="Gradient_47usn"]
+offsets = PackedFloat32Array(0.01633987, 1)
+colors = PackedColorArray(0.8509804, 1, 0.8745098, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_57qmd"]
+gradient = SubResource("Gradient_47usn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yf5fn"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+angular_velocity_min = -30.000015
+angular_velocity_max = 573.86
+radial_velocity_min = 49.999977
+radial_velocity_max = 119.99998
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -42.06
+linear_accel_max = 99.99999
+scale_min = 0.06
+scale_max = 0.13
+color_ramp = SubResource("GradientTexture1D_57qmd")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
 bg_color = Color(0.6, 0.6, 0.6, 0.13725491)
 
@@ -141,7 +172,10 @@ vertical = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_yf5fn"]
 font = ExtResource("5_yew1v")
-font_color = Color(0.5802277, 0.58022773, 0.58022773, 1)
+font_color = Color(0.5803922, 0.5803922, 0.5803922, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
+shader = ExtResource("7_h7pr1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
 font = ExtResource("5_yew1v")
@@ -152,16 +186,92 @@ font_color = Color(1, 0.40784314, 1, 1)
 font = ExtResource("5_yew1v")
 font_size = 32
 
+[sub_resource type="Gradient" id="Gradient_3h120"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_04q6e"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_47usn"]
+noise = SubResource("FastNoiseLite_04q6e")
+color_ramp = SubResource("Gradient_3h120")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h7pr1"]
+shader = ExtResource("9_47usn")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(16, 16)
+shader_parameter/rotation_angle = 30.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = true
+shader_parameter/cumulative_stagger = Vector2(1.025, 0.265)
+shader_parameter/stagger_frequency = Vector2i(1, 1)
+shader_parameter/flip_frequency = Vector2i(2, 2)
+shader_parameter/basic_feather = 0.085
+shader_parameter/mask_texture = SubResource("NoiseTexture2D_47usn")
+shader_parameter/use_mask_size = true
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 0.0
+shader_parameter/progress_bias = Vector2(1, 0)
+
 [sub_resource type="LabelSettings" id="LabelSettings_57qmd"]
 font = ExtResource("5_yew1v")
 font_size = 24
+
+[sub_resource type="Animation" id="Animation_04q6e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PanelContainer:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3h120"]
+resource_name = "Reveal area"
+length = 2.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PanelContainer:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.03),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 3.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0o6h"]
+_data = {
+&"RESET": SubResource("Animation_04q6e"),
+&"Reveal area": SubResource("Animation_3h120")
+}
 
 [node name="Rythm_Demo" type="Node2D" unique_id=1085173092]
 script = ExtResource("1_uj3k7")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=244154938]
-offset_right = 640.0
-offset_bottom = 360.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 960.0
+offset_bottom = 540.0
 texture = SubResource("NoiseTexture2D_g4v7s")
 stretch_mode = 2
 
@@ -187,7 +297,53 @@ position = Vector2(320, 180)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("5_xkudt")
 
+[node name="Lane 0 Particles" type="GPUParticles2D" parent="." unique_id=1340400008]
+position = Vector2(144, 334)
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_g4v7s")
+lifetime = 0.43
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yf5fn")
+
+[node name="Lane 1 Particles" type="GPUParticles2D" parent="." unique_id=888414481]
+position = Vector2(232, 334)
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_g4v7s")
+lifetime = 0.43
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yf5fn")
+
+[node name="Lane 2 Particles" type="GPUParticles2D" parent="." unique_id=343832352]
+position = Vector2(320, 334)
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_g4v7s")
+lifetime = 0.43
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yf5fn")
+
+[node name="Lane 3 Particles" type="GPUParticles2D" parent="." unique_id=448107386]
+position = Vector2(408, 334)
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_g4v7s")
+lifetime = 0.43
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yf5fn")
+
+[node name="Lane 4 Particles" type="GPUParticles2D" parent="." unique_id=1275707422]
+position = Vector2(496, 334)
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_g4v7s")
+lifetime = 0.43
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yf5fn")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145622721]
+layer = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=469296540]
 anchors_preset = 15
@@ -276,13 +432,11 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
-[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=2078218803]
-custom_minimum_size = Vector2(16, 0)
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=274392684]
+material = SubResource("ShaderMaterial_g4v7s")
 layout_mode = 2
-text = "H"
-label_settings = SubResource("LabelSettings_yf5fn")
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("8_47usn")
+expand_mode = 2
 
 [node name="VSeparator4" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=1072950872]
 layout_mode = 2
@@ -388,12 +542,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1151708352]
+material = SubResource("ShaderMaterial_h7pr1")
 offset_right = 640.0
 offset_bottom = 360.0
 
 [node name="Label" type="Label" parent="CanvasLayer/PanelContainer" unique_id=509792262]
+use_parent_material = true
 layout_mode = 2
 text = "Press ENTER to start"
 label_settings = SubResource("LabelSettings_57qmd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BlockLayer" type="CanvasLayer" parent="." unique_id=702039206]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1589605093]
+libraries/ = SubResource("AnimationLibrary_j0o6h")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=681022915]
+offset = Vector2(320, 180)
