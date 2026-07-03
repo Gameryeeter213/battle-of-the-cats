@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqxwwoifgcve6"]
 
 [ext_resource type="Texture2D" uid="uid://y2u7o7k7487h" path="res://Assets/Art/Cute_Fantasy_Free/Player/Player.png" id="1_04w1f"]
-[ext_resource type="Script" uid="uid://cmqr8btdqck35" path="res://Scripts/rythm_demo.gd" id="1_uj3k7"]
+[ext_resource type="Script" uid="uid://cmqr8btdqck35" path="res://Scripts/Rhythm/rythm_demo.gd" id="1_uj3k7"]
 [ext_resource type="Texture2D" uid="uid://8th0giswqmul" path="res://Assets/Art/Cute_Fantasy_Free/Enemies/Skeleton.png" id="2_uj3k7"]
 [ext_resource type="AudioStream" uid="uid://gj5m5yo48r8h" path="res://Assets/Tracks/Crazy Train.mp3" id="4_6uhko"]
 [ext_resource type="Texture2D" uid="uid://j161s6gi8u2f" path="res://Assets/Art/Casualclothes1-0.png" id="5_xkudt"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://yvjny6dct1ba" path="res://Shaders/Spacebar.gdshader" id="7_h7pr1"]
 [ext_resource type="Texture2D" uid="uid://drrrsi1ehjjd4" path="res://Assets/Art/Icons/spacebar-i6mhek4tz9q9xag6yqctg.png" id="8_47usn"]
 [ext_resource type="Shader" uid="uid://da2e1jalvpu07" path="res://Shaders/transition.gdshader" id="9_47usn"]
+[ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="10_04q6e"]
 
 [sub_resource type="Gradient" id="Gradient_57qmd"]
 offsets = PackedFloat32Array(0, 0.23317307)
@@ -227,6 +228,20 @@ shader_parameter/progress_bias = Vector2(1, 0)
 font = ExtResource("5_yew1v")
 font_size = 24
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3h120"]
+shader = ExtResource("10_04q6e")
+shader_parameter/aberration_x = 0.010000047974999982
+shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 15.0
+shader_parameter/scanlines_intensity = 0.055
+shader_parameter/flicker_speed = 30.0
+shader_parameter/flicker_intensity = 0.0150000007125
+shader_parameter/color_offset = 0.5
+shader_parameter/blurVHS = 0.5
+shader_parameter/mixrate = 0.550000026125
+
 [sub_resource type="Animation" id="Animation_04q6e"]
 length = 0.001
 tracks/0/type = "value"
@@ -266,6 +281,7 @@ _data = {
 
 [node name="Rythm_Demo" type="Node2D" unique_id=1085173092]
 script = ExtResource("1_uj3k7")
+shake_scale = 0.5
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=244154938]
 offset_left = -320.0
@@ -346,6 +362,7 @@ process_material = SubResource("ParticleProcessMaterial_yf5fn")
 layer = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=469296540]
+visibility_layer = 8
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -355,10 +372,12 @@ theme_override_constants/margin_left = 128
 theme_override_constants/margin_right = 128
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer" unique_id=1960737160]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=558883212]
+visibility_layer = 8
 layout_mode = 2
 theme_override_constants/separation = 84
 
@@ -387,28 +406,35 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=859285037]
+visibility_layer = 8
 layout_mode = 2
 alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1693982611]
+visibility_layer = 8
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1329529992]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_57qmd")
 
 [node name="Container" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=370557484]
+visibility_layer = 8
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container" unique_id=1676833883]
+visibility_layer = 8
 layout_mode = 2
 theme_override_constants/separation = 34
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=213361636]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=390415309]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "D"
@@ -417,10 +443,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VSeparator2" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=693620559]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=1667210592]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "F"
@@ -429,20 +457,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VSeparator3" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=646557702]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=274392684]
+visibility_layer = 8
 material = SubResource("ShaderMaterial_g4v7s")
 layout_mode = 2
 texture = ExtResource("8_47usn")
 expand_mode = 2
 
 [node name="VSeparator4" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=1072950872]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Label4" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=1843735603]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "J"
@@ -451,10 +483,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VSeparator5" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=331770907]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Label5" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=962085678]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "K"
@@ -463,66 +497,79 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VSeparator6" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer" unique_id=1210208708]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container" unique_id=273024410]
+visibility_layer = 8
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(12, -24)
 theme_override_constants/separation = 34
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1763111577]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Lane 0" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1829249775]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 custom_maximum_size = Vector2(16, -1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_g4v7s")
 
 [node name="VSeparator2" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=617894583]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Lane 1" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=198756649]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 custom_maximum_size = Vector2(16, -1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_g4v7s")
 
 [node name="VSeparator3" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1887237184]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Lane 2" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1364721929]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 custom_maximum_size = Vector2(16, -1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_g4v7s")
 
 [node name="VSeparator4" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=91207702]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Lane 3" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1582093061]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 custom_maximum_size = Vector2(16, -1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_g4v7s")
 
 [node name="VSeparator5" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=1978896715]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
 [node name="Lane 4" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=637231464]
+visibility_layer = 8
 custom_minimum_size = Vector2(16, 0)
 custom_maximum_size = Vector2(16, -1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_g4v7s")
 
 [node name="VSeparator6" type="VSeparator" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2" unique_id=2139297759]
+visibility_layer = 8
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_3gngh")
 
@@ -553,6 +600,16 @@ text = "Press ENTER to start"
 label_settings = SubResource("LabelSettings_57qmd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=487072268]
+visibility_layer = 4
+material = SubResource("ShaderMaterial_3h120")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="BlockLayer" type="CanvasLayer" parent="." unique_id=702039206]
 

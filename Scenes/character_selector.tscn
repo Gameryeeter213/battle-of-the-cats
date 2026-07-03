@@ -1,0 +1,230 @@
+[gd_scene format=3 uid="uid://ceeyvlejn7ows"]
+
+[ext_resource type="Script" uid="uid://bmh3g2bwg863p" path="res://Scripts/character_selector.gd" id="1_l1p1m"]
+[ext_resource type="Texture2D" uid="uid://c12fa3k87000e" path="res://Assets/Art/Icons/Arrow.png" id="2_kveib"]
+[ext_resource type="Texture2D" uid="uid://o8tx33004s3p" path="res://Assets/Art/Cat Sprites/Calico sprite.png" id="3_pa3tc"]
+[ext_resource type="Texture2D" uid="uid://css8t4i0bvnql" path="res://Assets/Art/Cat Sprites/White Sprite.png" id="4_g6eeq"]
+[ext_resource type="Texture2D" uid="uid://hdf5cthy455k" path="res://Assets/Art/Cat Sprites/Orange Sprite.png" id="5_i5hcc"]
+[ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="6_kveib"]
+[ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="7_pa3tc"]
+
+[sub_resource type="Gradient" id="Gradient_57qmd"]
+interpolation_color_space = 2
+colors = PackedColorArray(0, 0.4, 0.8509804, 1, 0.81960785, 0.10980392, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yf5fn"]
+noise_type = 2
+seed = 39
+frequency = 0.0001
+fractal_type = 3
+fractal_octaves = 8
+fractal_lacunarity = 2.28
+fractal_gain = 2.96
+fractal_weighted_strength = 0.35
+fractal_ping_pong_strength = 2.26
+cellular_distance_function = 3
+cellular_jitter = 0.0
+cellular_return_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
+width = 640
+height = 360
+noise = SubResource("FastNoiseLite_yf5fn")
+color_ramp = SubResource("Gradient_57qmd")
+seamless = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1huj"]
+atlas = ExtResource("3_pa3tc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtmm4"]
+atlas = ExtResource("3_pa3tc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tevl1"]
+atlas = ExtResource("3_pa3tc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1huj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtmm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tevl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtmm4")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit4a"]
+atlas = ExtResource("4_g6eeq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6twy"]
+atlas = ExtResource("4_g6eeq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irl6f"]
+atlas = ExtResource("4_g6eeq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_57qmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hit4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6twy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irl6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6twy")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8d6w"]
+atlas = ExtResource("5_i5hcc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp2qb"]
+atlas = ExtResource("5_i5hcc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0ap7"]
+atlas = ExtResource("5_i5hcc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yf5fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8d6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp2qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0ap7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp2qb")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("6_kveib")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
+shader = ExtResource("7_pa3tc")
+shader_parameter/aberration_x = 0.010000047974999982
+shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 15.0
+shader_parameter/scanlines_intensity = 0.055
+shader_parameter/flicker_speed = 30.0
+shader_parameter/flicker_intensity = 0.0150000007125
+shader_parameter/color_offset = 0.5
+shader_parameter/blurVHS = 0.3
+shader_parameter/mixrate = 0.550000026125
+
+[node name="Character Selector" type="Control" unique_id=785116354]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1p1m")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=236117911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_g4v7s")
+expand_mode = 1
+
+[node name="Calico Sprite" type="AnimatedSprite2D" parent="." unique_id=359235561]
+position = Vector2(320, 180)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"Idle"
+frame_progress = 0.5682929
+
+[node name="White Sprite" type="AnimatedSprite2D" parent="." unique_id=524356464]
+position = Vector2(416, 180)
+sprite_frames = SubResource("SpriteFrames_57qmd")
+animation = &"Idle"
+
+[node name="Orange Sprite" type="AnimatedSprite2D" parent="." unique_id=2028288583]
+position = Vector2(224, 180)
+sprite_frames = SubResource("SpriteFrames_yf5fn")
+animation = &"Idle"
+frame_progress = 0.016454717
+
+[node name="Left" type="TextureButton" parent="." unique_id=1663189468]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 330.0
+offset_right = 242.0
+offset_bottom = 377.0
+rotation = 3.1415927
+texture_normal = ExtResource("2_kveib")
+
+[node name="Right" type="TextureButton" parent="." unique_id=1359538571]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 283.0
+offset_right = 622.0
+offset_bottom = 330.0
+texture_normal = ExtResource("2_kveib")
+
+[node name="Label" type="Label" parent="." unique_id=1735394678]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43600002
+anchor_right = 0.564
+anchor_bottom = 0.26900002
+offset_left = -0.040008545
+offset_right = 0.039978027
+offset_bottom = 0.1599884
+grow_horizontal = 2
+text = "Calico"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2130945356]
+visibility_layer = 4
+material = SubResource("ShaderMaterial_g4v7s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Right" to="." method="_on_right_pressed"]

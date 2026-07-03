@@ -21,7 +21,8 @@ driver/output_latency.web=15
 
 [autoload]
 
-Global="*uid://b3bsv6r3tynf5"
+Rhythm="*uid://b3bsv6r3tynf5"
+Global="*uid://ce01sujcl5gl2"
 
 [display]
 

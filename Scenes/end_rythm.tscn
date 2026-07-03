@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2hsmtna8rjfa"]
 
-[ext_resource type="Script" uid="uid://dmwnltb0aro3g" path="res://Scripts/end_rythm.gd" id="1_n3o6t"]
+[ext_resource type="Script" uid="uid://dmwnltb0aro3g" path="res://Scripts/Rhythm/end_rythm.gd" id="1_n3o6t"]
 
 [node name="End Rythm" type="Control" unique_id=12927401]
 layout_mode = 3

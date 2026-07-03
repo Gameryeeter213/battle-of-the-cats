@@ -36,7 +36,7 @@ var time_delay :float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Global.reset()
+	Rhythm.reset()
 	$AnimatedSprite2D.play()
 	$AnimatedSprite2D2.play()
 	load_song("res://Assets/Tracks/Crazy Train.JSON")
@@ -52,11 +52,11 @@ func _process(delta: float) -> void:
 		State.Playing:
 			play_chart()
 			check_held_notes()
-			Global.miss_shake = lerp(Global.miss_shake, 0.0, 2*delta)
-			camera.offset.x += randf_range(-15*shake_scale*Global.miss_shake,15*shake_scale*Global.miss_shake)
-			if Global.song_time>25.0:
+			Rhythm.miss_shake = lerp(Rhythm.miss_shake, 0.0, 2*delta)
+			camera.offset.x += randf_range(-15*shake_scale*Rhythm.miss_shake,15*shake_scale*Rhythm.miss_shake)
+			if Rhythm.song_time>25.0:
 				get_tree().change_scene_to_file("res://Scenes/end_rythm.tscn")
-			score_board.text = str(int(lerp(int(score_board.text), Global.score, 6*delta)))
+			score_board.text = str(int(lerp(int(score_board.text), Rhythm.score, 6*delta)))
 			
 
 func load_song(path: String):
@@ -103,14 +103,14 @@ func start_chart():
 	audioplayer.play()
 
 func play_chart():
-	Global.song_time = (Time.get_ticks_usec() - time_begin)/ 1000000.0
-	Global.song_time -= time_delay
-	Global.song_time = max(0, Global.song_time)
+	Rhythm.song_time = (Time.get_ticks_usec() - time_begin)/ 1000000.0
+	Rhythm.song_time -= time_delay
+	Rhythm.song_time = max(0, Rhythm.song_time)
 	while index < notes.size():
 		var note = notes[index]
 		note_time = note.beat * 60.0 / bpm
 		var hold_time :float = note.duration * 60.0 / bpm
-		if Global.song_time+2.0 >= note_time:
+		if Rhythm.song_time+2.0 >= note_time:
 			spawn_note(note.lane, note_time, hold_time)
 			index += 1
 		else:
@@ -123,7 +123,7 @@ func spawn_note(lane: int, note_time: float, hold_time :float):
 	Block.position = Vector2(float(144+(88*lane)),float(-100))
 	Block.name = "lane_%d_time_%.3f" % [lane, note_time]
 	Block.lane = lane
-	Global.lane_queue[lane].append({
+	Rhythm.lane_queue[lane].append({
 		"note_time": note_time,
 		"node": Block,
 		"duration": hold_time
@@ -153,97 +153,97 @@ func _unhandled_input(event: InputEvent) -> void:
 		handle_lane(4, lane_4, lane_4Part,"Lane 4")
 
 func handle_lane(lane: int, lane_label:Label, lane_part :GPUParticles2D, laneName :String):
-	if Global.lane_queue[lane].is_empty():
+	if Rhythm.lane_queue[lane].is_empty():
 		return
-	var entry = Global.lane_queue[lane][0]
+	var entry = Rhythm.lane_queue[lane][0]
 	if not is_instance_valid(entry["node"]):
-		Global.lane_queue[lane].pop_front()
+		Rhythm.lane_queue[lane].pop_front()
 		return
 	var note_node :Node2D = entry["node"]
 	var note_time_check :float = entry["note_time"]
-	var time_diff :float = abs((note_time_check-Global.song_time)*1000)
+	var time_diff :float = abs((note_time_check-Rhythm.song_time)*1000)
 	var duration :float = entry["duration"]
 	if time_diff >=140:
 		return
 	if time_diff > 75 and time_diff <140:
-		Global.miss +=1
-		Global.miss_shake = 1.0
-		Global.combo =0
+		Rhythm.miss +=1
+		Rhythm.miss_shake = 1.0
+		Rhythm.combo =0
 		lane_label.text = "MISS"
-		Global.lane_queue[lane].pop_front()
+		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
-		Global.update_mult()
+		Rhythm.update_mult()
 
 	elif time_diff > 20:
-		Global.goods +=1
-		Global.combo+=1
-		Global.score += 50*Global.combo_mult
+		Rhythm.goods +=1
+		Rhythm.combo+=1
+		Rhythm.score += 50*Rhythm.combo_mult
 		lane_label.text = "GOOD"
 		lane_part.emitting = true
 		if duration > 0.0:
-			Global.active_hold[lane] = entry
+			Rhythm.active_hold[lane] = entry
 			return
 	elif time_diff <= 20:
-		Global.perfects +=1
-		Global.combo+=1
-		Global.score += 100*Global.combo_mult
+		Rhythm.perfects +=1
+		Rhythm.combo+=1
+		Rhythm.score += 100*Rhythm.combo_mult
 		lane_label.text = "PERFECT"
 		lane_part.emitting = true
 		if duration > 0.0:
-			Global.active_hold[lane] = entry
+			Rhythm.active_hold[lane] = entry
 			return
 	if not duration > 0.0:
-		Global.lane_queue[lane].pop_front()
+		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
-		Global.update_mult()
+		Rhythm.update_mult()
 
 func check_held_notes():
 	for lane in range(5):
-		var hold = Global.active_hold[lane]
+		var hold = Rhythm.active_hold[lane]
 		if hold == null:
 			continue
 		if !Input.is_action_pressed("Lane %d" % lane):
 			fail_hold(lane)
 			continue
-		if Global.song_time >= hold["note_time"] + hold["duration"]:
+		if Rhythm.song_time >= hold["note_time"] + hold["duration"]:
 			complete_hold(lane)
 
 func fail_hold(lane :int):	
-	var note_node :Node2D =  Global.active_hold[lane]["node"]
-	Global.lane_queue[lane].pop_front()
-	Global.miss +=1
-	Global.miss_shake = 1.0
-	Global.combo =0
+	var note_node :Node2D =  Rhythm.active_hold[lane]["node"]
+	Rhythm.lane_queue[lane].pop_front()
+	Rhythm.miss +=1
+	Rhythm.miss_shake = 1.0
+	Rhythm.combo =0
 	note_node.queue_free()
-	Global.update_mult()
-	Global.active_hold[lane] = null
+	Rhythm.update_mult()
+	Rhythm.active_hold[lane] = null
 
 func complete_hold(lane :int):
-	var note_node :Node2D =  Global.active_hold[lane]["node"]
-	var NoteTime :float =  Global.active_hold[lane]["note_time"]
-	var Duration :float =  Global.active_hold[lane]["duration"]
-	var time_diff :float = abs(NoteTime+Duration-Global.song_time)*1000.0
+	var note_node :Node2D =  Rhythm.active_hold[lane]["node"]
+	var NoteTime :float =  Rhythm.active_hold[lane]["note_time"]
+	var Duration :float =  Rhythm.active_hold[lane]["duration"]
+	var time_diff :float = abs(NoteTime+Duration-Rhythm.song_time)*1000.0
 	if time_diff > 20 and !Input.is_action_pressed("Lane "+str(lane)):
 		print("GOOD")
-		Global.goods +=1
-		Global.combo+=1
-		Global.score += 50*Global.combo_mult
-		Global.lane_queue[lane].pop_front()
+		Rhythm.goods +=1
+		Rhythm.combo+=1
+		Rhythm.score += 50*Rhythm.combo_mult
+		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
-		Global.update_mult()
-		Global.active_hold[lane] = null
+		Rhythm.update_mult()
+		Rhythm.active_hold[lane] = null
 	elif time_diff <= 20 and !Input.is_action_pressed("Lane "+str(lane)):
 		print("PERFECT")
-		Global.perfects +=1
-		Global.combo+=1
-		Global.score += 100*Global.combo_mult
-		Global.lane_queue[lane].pop_front()
+		Rhythm.perfects +=1
+		Rhythm.combo+=1
+		Rhythm.score += 100*Rhythm.combo_mult
+		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
-		Global.update_mult()
-		Global.active_hold[lane] = null
+		Rhythm.update_mult()
+		Rhythm.active_hold[lane] = null
 	elif time_diff >=140:
 		print("MISS")
-		Global.lane_queue[lane].pop_front()
+		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
-		Global.update_mult()
-		Global.active_hold[lane] = null
+		Rhythm.update_mult()
+		Rhythm.active_hold[lane] = null

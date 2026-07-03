@@ -24,11 +24,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.y = (hit_y + (Global.song_time - note_time) * speed)
-	var time_diff = (note_time+hold_time-Global.song_time)*1000
+	position.y = (hit_y + (Rhythm.song_time - note_time) * speed)
+	var time_diff = (note_time+hold_time-Rhythm.song_time)*1000
 	if time_diff <= -140:
-		Global.lane_queue[lane].pop_front()
-		Global.miss +=1
-		Global.miss_shake = 1
-		Global.combo = 0
+		Rhythm.lane_queue[lane].pop_front()
+		Rhythm.miss +=1
+		Rhythm.miss_shake = 1
+		Rhythm.combo = 0
 		queue_free()

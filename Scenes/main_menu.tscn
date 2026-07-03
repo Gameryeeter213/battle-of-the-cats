@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://duoqpoumqhxnw"]
 
 [ext_resource type="Script" uid="uid://rv8oirikr566" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="2_48xlc"]
 
 [sub_resource type="Gradient" id="Gradient_erv1k"]
 interpolation_mode = 2
@@ -24,6 +25,20 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 6
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
+shader = ExtResource("2_48xlc")
+shader_parameter/aberration_x = 0.010000047974999982
+shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 15.0
+shader_parameter/scanlines_intensity = 0.055
+shader_parameter/flicker_speed = 30.0
+shader_parameter/flicker_intensity = 0.0150000007125
+shader_parameter/color_offset = 0.5
+shader_parameter/blurVHS = 0.3
+shader_parameter/mixrate = 0.550000026125
 
 [node name="Main Menu" type="Control" unique_id=596047698]
 layout_mode = 3
@@ -79,5 +94,16 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Play"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1689248440]
+visibility_layer = 4
+material = SubResource("ShaderMaterial_1ehe0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
