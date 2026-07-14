@@ -3,14 +3,23 @@ extends Control
 @onready var sprites := [
 	$"Calico Sprite",
 	$"White Sprite",
-	$"Orange Sprite"
+	$"Orange Sprite",
+	$"Black Sprite",
+	$"Siamese Sprite"
 ]
 
+@onready var music :AudioStreamPlayer2D = $"../Music"
+@onready var world := preload("res://Scenes/map.tscn")
+@onready var hoversfx :AudioStreamPlayer2D = $"../Hover"
+@onready var selectsfx :AudioStreamPlayer2D = $"../Select"
+@onready var arrowsfx := $ArrowSFX
 
 var characters := [
 	"Calico",
 	"White",
-	"Orange"
+	"Orange",
+	"Black",
+	"Siamese"
 ]
 
 @onready var CatName :Label = $Label
@@ -18,21 +27,11 @@ var characters := [
 var index: int = 0
 var speed: float = 8.0
 
-# Target layout for each character slot
-var targets := [
-	{
-		"pos": Vector2(224, 180),
-		"scale": Vector2(3, 3)
-	},
-	{
-		"pos": Vector2(320, 180),
-		"scale": Vector2(6, 6) # center (selected look)
-	},
-	{
-		"pos": Vector2(416, 180),
-		"scale": Vector2(3, 3)
-	}
-]
+var center_x := 320
+var center_y := 180
+var spacing := 96
+var center_scale := 6.0
+var side_scale := 3.0
 
 
 func _ready() -> void:
@@ -43,39 +42,66 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# Smoothly move all sprites toward their targets
 	for i in sprites.size():
 		var sprite = sprites[i]
-		var target = targets[i]
 
-		sprite.position = sprite.position.lerp(target["pos"], speed * delta)
-		sprite.scale = sprite.scale.lerp(target["scale"], speed * delta)
+		var offset_index = i - index
+
+		var target_pos = Vector2(center_x + offset_index * spacing, center_y)
+
+		var target_scale = Vector2(
+			center_scale if i == index else side_scale,
+			center_scale if i == index else side_scale
+		)
+
+		sprite.position = sprite.position.lerp(target_pos, speed * delta)
+		sprite.scale = sprite.scale.lerp(target_scale, speed * delta)
 
 
 func _on_right_pressed() -> void:
+	arrowsfx.pitch_scale = randf_range(0.9,1.1)
+	arrowsfx.play()
 	index = (index + 1) % sprites.size()
 	apply_focus()
 
 
 func _on_left_pressed() -> void:
+	arrowsfx.pitch_scale = randf_range(0.9,1.1)
+	arrowsfx.play()
 	index = (index - 1 + sprites.size()) % sprites.size()
 	apply_focus()
 
 
 func apply_focus() -> void:
-	# Rebuild layout so selected character is always centered
-	for i in sprites.size():
-		if i == index:
-			targets[i]["pos"] = Vector2(320, 180)
-			targets[i]["scale"] = Vector2(6, 6)
-		else:
-			# spread left/right around center
-			var offset = (i - index) * 96
-			targets[i]["pos"] = Vector2(320 + offset, 180)
-			targets[i]["scale"] = Vector2(3, 3)
 	CatName.text = characters[index]
 
 
 func _on_button_pressed() -> void:
+	selectsfx.play()
 	Global.cat_color = characters[index]
-	get_tree().change_scene_to_file("res://Scenes/map.tscn")
+	var tween = create_tween()
+	tween.tween_property(
+		music,
+		"volume_db",
+		-8.0,
+		0.4
+	)
+	await tween.finished
+	music.stop()
+	music.volume_db = 0
+	get_tree().change_scene_to_packed(world)
+
+
+func _on_left_mouse_entered() -> void:
+	hoversfx.pitch_scale = randf_range(0.9,1.1)
+	hoversfx.play()
+
+
+func _on_right_mouse_entered() -> void:
+	hoversfx.pitch_scale = randf_range(0.9,1.1)
+	hoversfx.play()
+
+
+func _on_button_mouse_entered() -> void:
+	hoversfx.pitch_scale = randf_range(0.9,1.1)
+	hoversfx.play()

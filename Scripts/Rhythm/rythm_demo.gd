@@ -2,13 +2,13 @@ extends Node2D
 
 #Create variables
 @onready var block :PackedScene = preload("res://Scenes/block.tscn")
-@onready var audioplayer :AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var lane_0 :Label = $"CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 0"
-@onready var lane_1 :Label = $"CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 1"
-@onready var lane_2 :Label = $"CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 2"
-@onready var lane_3 :Label = $"CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 3"
-@onready var lane_4 :Label = $"CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 4"
-@onready var score_board :Label = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Score
+@onready var audioplayer :AudioStreamPlayer2D = $Music
+@onready var lane_0 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 0"
+@onready var lane_1 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 1"
+@onready var lane_2 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 2"
+@onready var lane_3 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 3"
+@onready var lane_4 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 4"
+@onready var score_board :Label = $CanvasLayer/PlayArea/VBoxContainer/HBoxContainer/Score
 @onready var camera :Camera2D = $Camera2D
 @onready var lane_0Part :GPUParticles2D = $"Lane 0 Particles"
 @onready var lane_1Part :GPUParticles2D = $"Lane 1 Particles"
@@ -17,12 +17,17 @@ extends Node2D
 @onready var lane_4Part :GPUParticles2D = $"Lane 4 Particles"
 @onready var BlockLayer :CanvasLayer = $BlockLayer
 @export var shake_scale :float = 1.0
+@onready var animation :AnimationPlayer = $AnimationPlayer
+@onready var sticks := $Sticks
+@onready var countin :=$CanvasLayer/PreStart/PanelContainer/Label
+@onready var missSFX :=$Miss
 
 enum State {
 	Waiting,
-	Playing
+	Playing,
+	Action_Selection
 }
-var state = State.Waiting
+var state = State.Action_Selection
 var bpm: float = 120.0
 var instrument := ""
 var charts := {}
@@ -37,16 +42,15 @@ var time_delay :float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Rhythm.reset()
-	$AnimatedSprite2D.play("Idle "+Global.cat_color)
-	$AnimatedSprite2D2.play()
-	load_song("res://Assets/Tracks/Crazy Train.JSON")
-	instrument = "Guitar"
-	notes = charts[instrument]
-	print(notes)
+	$CatSprite.play("Idle "+Global.cat_color)
+	$EnemySprite.play()
+	instrument = Global.Instrument
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match state:
+		State.Action_Selection:
+			return
 		State.Waiting:
 			return
 		State.Playing:
@@ -54,11 +58,8 @@ func _process(delta: float) -> void:
 			check_held_notes()
 			Rhythm.miss_shake = lerp(Rhythm.miss_shake, 0.0, 2*delta)
 			camera.offset.x += randf_range(-15*shake_scale*Rhythm.miss_shake,15*shake_scale*Rhythm.miss_shake)
-			if Rhythm.song_time>25.0:
-				get_tree().change_scene_to_file("res://Scenes/end_rythm.tscn")
 			score_board.text = str(int(lerp(int(score_board.text), Rhythm.score, 6*delta)))
-			
-
+			audioplayer.volume_linear = lerp(audioplayer.volume_linear, 1.0, delta)
 func load_song(path: String):
 	var file = FileAccess.open(path, FileAccess.READ)
 	
@@ -132,11 +133,6 @@ func spawn_note(lane: int, note_time: float, hold_time :float):
 
 func _unhandled_input(event: InputEvent) -> void:
 	
-	if Input.is_action_just_pressed("ui_accept") and state == State.Waiting:
-		$AnimationPlayer.play("Reveal area")
-		start_chart()
-		state = State.Playing
-	
 	if Input.is_action_just_pressed("Lane 0"):
 		handle_lane(0, lane_0, lane_0Part,"Lane 0")
 	
@@ -166,6 +162,9 @@ func handle_lane(lane: int, lane_label:Label, lane_part :GPUParticles2D, laneNam
 	if time_diff >=140:
 		return
 	if time_diff > 75 and time_diff <140:
+		audioplayer.volume_linear = 0.75
+		missSFX.pitch_scale = randf_range(0.9,1.1)
+		missSFX.play()
 		Rhythm.miss +=1
 		Rhythm.miss_shake = 1.0
 		Rhythm.combo =0
@@ -247,3 +246,62 @@ func complete_hold(lane :int):
 		note_node.queue_free()
 		Rhythm.update_mult()
 		Rhythm.active_hold[lane] = null
+
+func action_selected(Action :String):
+	load_song("res://Assets/Tracks/"+Action+Global.Instrument+".JSON")
+	audioplayer.stream = load("res://Assets/Tracks/"+Action+Global.Instrument+".mp3")
+	print(charts)
+	notes = charts[instrument]
+	animation.play("Hide Action Select")
+	await get_tree().create_timer(1).timeout
+	$"CanvasLayer/Action Select".hide()
+	$CanvasLayer/PreStart.show()
+	state = State.Waiting
+	count_in()
+
+
+
+func _on_attack_pressed() -> void:
+	action_selected("Attack ")
+
+
+func _on_defend_pressed() -> void:
+	action_selected("Defend ")
+
+
+func _on_heal_pressed() -> void:
+	action_selected("Heal ")
+
+func count_in():
+	start_chart()
+	state = State.Playing
+	$CanvasLayer/PlayArea.show()
+	sticks.play()
+	countin.text = "1"
+	await get_tree().create_timer(120/bpm).timeout
+	sticks.play()
+	countin.text = "3"
+	await get_tree().create_timer(120/bpm).timeout
+	sticks.play()
+	countin.text = "1"
+	await get_tree().create_timer(60/bpm).timeout
+	sticks.play()
+	countin.text = "2"
+	await get_tree().create_timer(60/bpm).timeout
+	sticks.play()
+	countin.text = "3"
+	await get_tree().create_timer(60/bpm).timeout
+	sticks.play()
+	countin.text = "4"
+	await get_tree().create_timer(60/bpm).timeout
+	animation.play("Hide PreStart")
+	await get_tree().create_timer(0.5).timeout
+	$"CanvasLayer/PreStart".hide()
+
+
+func _on_music_finished() -> void:
+	get_tree().change_scene_to_file("res://Scenes/end_rythm.tscn")
+	
+
+func results_screen():
+	pass

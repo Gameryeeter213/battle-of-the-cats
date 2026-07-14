@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bkbv1osf2dnfw"
+path="res://.godot/imported/Stick hit.mp3-ba873d549df9175f69c620a155db7276.mp3str"
+
+[deps]
+
+source_file="res://Assets/SFX/Stick hit.mp3"
+dest_files=["res://.godot/imported/Stick hit.mp3-ba873d549df9175f69c620a155db7276.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

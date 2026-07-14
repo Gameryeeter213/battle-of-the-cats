@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://rv8oirikr566" path="res://Scripts/main_menu.gd" id="1_28flt"]
 [ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="2_48xlc"]
+[ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="2_n45e2"]
+[ext_resource type="AudioStream" uid="uid://df1luosy4kwg5" path="res://Assets/Music/Menu Music.mp3" id="3_1ehe0"]
+[ext_resource type="PackedScene" uid="uid://ceeyvlejn7ows" path="res://Scenes/character_selector.tscn" id="4_ce3w2"]
+[ext_resource type="AudioStream" uid="uid://c1h7xorgrw541" path="res://Assets/SFX/Audio/glass_006.ogg" id="6_opfnp"]
+[ext_resource type="AudioStream" uid="uid://b468rem2e40ih" path="res://Assets/SFX/Audio/scratch_004.ogg" id="7_cp0ys"]
 
 [sub_resource type="Gradient" id="Gradient_erv1k"]
 interpolation_mode = 2
@@ -19,17 +24,49 @@ fill = 2
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
-font_size = 32
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 6
-shadow_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0.18039216, 0.61960787, 0.20784314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce3w2"]
+bg_color = Color(0.117788054, 0.4196229, 0.13514918, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n45e2"]
+bg_color = Color(0.15537375, 0.5343448, 0.17804745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("2_48xlc")
-shader_parameter/aberration_x = 0.010000047974999982
-shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/aberration_x = 0.01000004797499998
+shader_parameter/aberration_y = 0.01000004797499998
 shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
 shader_parameter/flicker_color = Color(0, 0, 0, 1)
 shader_parameter/scanlines_count = 15.0
@@ -49,8 +86,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_28flt")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1921394827]
-layout_mode = 1
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=1953414593]
+
+[node name="TextureRect" type="TextureRect" parent="MenuLayer" unique_id=1921394827]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -58,47 +96,46 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_g4v7s")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=869513233]
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer" unique_id=869513233]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -188.0
+offset_top = -41.5
+offset_right = 188.0
+offset_bottom = 41.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 128
-theme_override_constants/margin_top = 160
-theme_override_constants/margin_right = 128
-theme_override_constants/margin_bottom = 160
+theme_override_constants/margin_left = 416
+theme_override_constants/margin_top = 288
+theme_override_constants/margin_right = 416
+theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1566071495]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/MarginContainer" unique_id=1566071495]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=477232327]
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/MarginContainer/VBoxContainer" unique_id=1641306074]
 layout_mode = 2
-text = "Battle of the Kitties"
-label_settings = SubResource("LabelSettings_g4v7s")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1641306074]
-layout_mode = 2
-theme_override_constants/margin_left = 352
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 352
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=2017872874]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/MarginContainer/VBoxContainer/MarginContainer" unique_id=2017872874]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=34452688]
+[node name="Button" type="Button" parent="MenuLayer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=34452688]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_n45e2")
 theme_override_font_sizes/font_size = 24
-text = "Play"
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ce3w2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n45e2")
+text = " ▶PLAY "
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1689248440]
+[node name="ColorRect" type="ColorRect" parent="MenuLayer" unique_id=1689248440]
 visibility_layer = 4
 material = SubResource("ShaderMaterial_1ehe0")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -106,4 +143,30 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="ColorRect2" type="ColorRect" parent="MenuLayer" unique_id=730276557]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 160.0
+offset_top = 60.0
+offset_right = -160.0
+offset_bottom = 180.0
+grow_horizontal = 2
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=232798629]
+stream = ExtResource("3_1ehe0")
+autoplay = true
+
+[node name="Character Selector" parent="." unique_id=785116354 instance=ExtResource("4_ce3w2")]
+visible = false
+layout_mode = 1
+
+[node name="Hover" type="AudioStreamPlayer2D" parent="." unique_id=1640302886]
+position = Vector2(147, 232)
+stream = ExtResource("6_opfnp")
+
+[node name="Select" type="AudioStreamPlayer2D" parent="." unique_id=1382553775]
+position = Vector2(221, 174)
+stream = ExtResource("7_cp0ys")
+
+[connection signal="mouse_entered" from="MenuLayer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MenuLayer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

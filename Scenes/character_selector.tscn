@@ -4,9 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://c12fa3k87000e" path="res://Assets/Art/Icons/Arrow.png" id="2_kveib"]
 [ext_resource type="Texture2D" uid="uid://o8tx33004s3p" path="res://Assets/Art/Cat Sprites/Calico sprite.png" id="3_pa3tc"]
 [ext_resource type="Texture2D" uid="uid://css8t4i0bvnql" path="res://Assets/Art/Cat Sprites/White Sprite.png" id="4_g6eeq"]
+[ext_resource type="Texture2D" uid="uid://bv773xiyu4x5u" path="res://Assets/Art/Cat Sprites/Black Sprite.png" id="5_g6eeq"]
 [ext_resource type="Texture2D" uid="uid://hdf5cthy455k" path="res://Assets/Art/Cat Sprites/Orange Sprite.png" id="5_i5hcc"]
+[ext_resource type="Texture2D" uid="uid://qtnvr15bpqg" path="res://Assets/Art/Cat Sprites/Siamese Sprite.png" id="6_i5hcc"]
 [ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="6_kveib"]
 [ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="7_pa3tc"]
+[ext_resource type="AudioStream" uid="uid://vrmdhgdqtsdl" path="res://Assets/SFX/Audio/pluck_001.ogg" id="10_j1huj"]
 
 [sub_resource type="Gradient" id="Gradient_57qmd"]
 interpolation_color_space = 2
@@ -129,6 +132,78 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5hcc"]
+atlas = ExtResource("5_g6eeq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3es2i"]
+atlas = ExtResource("5_g6eeq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaaop"]
+atlas = ExtResource("5_g6eeq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jop44"]
+atlas = ExtResource("5_g6eeq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d0u6y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5hcc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3es2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gaaop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jop44")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrvhe"]
+atlas = ExtResource("6_i5hcc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h26s2"]
+atlas = ExtResource("6_i5hcc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4h87"]
+atlas = ExtResource("6_i5hcc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bmrj"]
+atlas = ExtResource("6_i5hcc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrvhe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrvhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h26s2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4h87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bmrj")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
 font = ExtResource("6_kveib")
 
@@ -158,8 +233,8 @@ corner_detail = 20
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
 shader = ExtResource("7_pa3tc")
-shader_parameter/aberration_x = 0.010000047974999982
-shader_parameter/aberration_y = 0.010000047974999982
+shader_parameter/aberration_x = 0.01000004797499998
+shader_parameter/aberration_y = 0.01000004797499998
 shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
 shader_parameter/flicker_color = Color(0, 0, 0, 1)
 shader_parameter/scanlines_count = 15.0
@@ -197,7 +272,8 @@ animation = &"Idle"
 frame_progress = 0.5682929
 
 [node name="White Sprite" type="AnimatedSprite2D" parent="." unique_id=524356464]
-position = Vector2(416, 180)
+position = Vector2(224, 180)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_57qmd")
 animation = &"Idle"
 
@@ -206,6 +282,16 @@ position = Vector2(224, 180)
 sprite_frames = SubResource("SpriteFrames_yf5fn")
 animation = &"Idle"
 frame_progress = 0.016454717
+
+[node name="Black Sprite" type="AnimatedSprite2D" parent="." unique_id=424999085]
+sprite_frames = SubResource("SpriteFrames_d0u6y")
+animation = &"Idle"
+frame_progress = 0.4017597
+
+[node name="Siamese Sprite" type="AnimatedSprite2D" parent="." unique_id=124713890]
+sprite_frames = SubResource("SpriteFrames_lrvhe")
+animation = &"Idle"
+frame_progress = 0.6352473
 
 [node name="Left" type="TextureButton" parent="." unique_id=1663189468]
 layout_mode = 0
@@ -219,9 +305,9 @@ texture_normal = ExtResource("2_kveib")
 [node name="Right" type="TextureButton" parent="." unique_id=1359538571]
 layout_mode = 0
 offset_left = 510.0
-offset_top = 283.0
+offset_top = 284.0
 offset_right = 622.0
-offset_bottom = 330.0
+offset_bottom = 331.0
 texture_normal = ExtResource("2_kveib")
 
 [node name="Label" type="Label" parent="." unique_id=1735394678]
@@ -269,6 +355,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="ArrowSFX" type="AudioStreamPlayer2D" parent="." unique_id=710111430]
+position = Vector2(153, 287)
+stream = ExtResource("10_j1huj")
+
+[connection signal="mouse_entered" from="Left" to="." method="_on_left_mouse_entered"]
 [connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
+[connection signal="mouse_entered" from="Right" to="." method="_on_right_mouse_entered"]
 [connection signal="pressed" from="Right" to="." method="_on_right_pressed"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

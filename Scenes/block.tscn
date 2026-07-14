@@ -1,18 +1,11 @@
 [gd_scene format=3 uid="uid://ycyksrdbarh7"]
 
 [ext_resource type="Script" uid="uid://f57xkc0p35df" path="res://Scripts/Rhythm/block_fall.gd" id="1_ejx3s"]
-
-[sub_resource type="Gradient" id="Gradient_fsd7l"]
-offsets = PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7956731, 1)
-colors = PackedColorArray(0, 0.40455496, 5.7756904e-07, 1, 0.11401908, 0.48120227, 0.112442195, 1, 0.15202543, 0.50675136, 0.14992273, 1, 2.270009, 0, 2.426839, 1, 0.2906731, 0.5999548, 0.28665218, 1, 0.48760098, 0.73233604, 0.4808555, 1, 0.7681237, 0.99999994, 0.74588084, 1)
-metadata/_snap_enabled = true
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
-gradient = SubResource("Gradient_fsd7l")
-width = 86
-height = 24
-fill_from = Vector2(0.5, 0)
-fill_to = Vector2(0.5, 1)
+[ext_resource type="Texture2D" uid="uid://bbwtk1gmfcplp" path="res://Assets/Art/Rhythm base notes/pixil-frame-0.png" id="2_ods6j"]
+[ext_resource type="Texture2D" uid="uid://bnc15w5i2wegx" path="res://Assets/Art/Rhythm base notes/pixil-frame-1.png" id="3_q1lxy"]
+[ext_resource type="Texture2D" uid="uid://c2sya1aafrs1m" path="res://Assets/Art/Rhythm base notes/pixil-frame-2.png" id="4_hjj06"]
+[ext_resource type="Texture2D" uid="uid://bx0a5arl0iw0g" path="res://Assets/Art/Rhythm base notes/pixil-frame-3.png" id="5_npor0"]
+[ext_resource type="Texture2D" uid="uid://deei24v1hlaj7" path="res://Assets/Art/Rhythm base notes/pixil-frame-4.png" id="6_bcggr"]
 
 [sub_resource type="Gradient" id="Gradient_ejx3s"]
 colors = PackedColorArray(0, 0.5647465, 5.7756904e-07, 1, 0.09803922, 0.47058824, 0.09803922, 1)
@@ -33,11 +26,51 @@ width = 86
 height = 12
 fill_from = Vector2(0, 1)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ejx3s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ods6j")
+}],
+"loop": 1,
+"name": &"Lane 0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q1lxy")
+}],
+"loop": 1,
+"name": &"Lane 1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hjj06")
+}],
+"loop": 1,
+"name": &"Lane 2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_npor0")
+}],
+"loop": 1,
+"name": &"Lane 3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_bcggr")
+}],
+"loop": 1,
+"name": &"Lane 4",
+"speed": 5.0
+}]
+
 [node name="Block" type="Node2D" unique_id=113044753]
 script = ExtResource("1_ejx3s")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1386099797]
-texture = SubResource("GradientTexture2D_g4v7s")
 
 [node name="TextureRect" type="Sprite2D" parent="." unique_id=1611430697]
 position = Vector2(0, -21)
@@ -46,3 +79,7 @@ texture = SubResource("GradientTexture2D_yf5fn")
 [node name="TextureRect2" type="Sprite2D" parent="." unique_id=1464621017]
 position = Vector2(0, -45)
 texture = SubResource("GradientTexture2D_57qmd")
+
+[node name="Block" type="AnimatedSprite2D" parent="." unique_id=246624438]
+sprite_frames = SubResource("SpriteFrames_ejx3s")
+animation = &"Lane 4"
