@@ -23,6 +23,7 @@ driver/output_latency.web=15
 
 Rhythm="*uid://b3bsv6r3tynf5"
 Global="*uid://ce01sujcl5gl2"
+ID="*uid://c0cvgavjpyvdq"
 
 [display]
 
@@ -34,6 +35,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 Enemy="Enemies"
+Player=""
 
 [input]
 

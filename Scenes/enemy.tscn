@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_po0sg"]
-size = Vector2(11, 17)
+size = Vector2(11, 20)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=903336004 groups=["Enemy"]]
 collision_layer = 2
@@ -53,7 +53,7 @@ animation = &"Idle White"
 frame_progress = 0.27013367
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1361521388]
-position = Vector2(0.5, -1.5)
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_po0sg")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=888658434]

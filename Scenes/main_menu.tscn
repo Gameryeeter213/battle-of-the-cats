@@ -5,24 +5,19 @@
 [ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="2_n45e2"]
 [ext_resource type="AudioStream" uid="uid://df1luosy4kwg5" path="res://Assets/Music/Menu Music.mp3" id="3_1ehe0"]
 [ext_resource type="PackedScene" uid="uid://ceeyvlejn7ows" path="res://Scenes/character_selector.tscn" id="4_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://bcju2m751dfnj" path="res://Assets/Art/Logo.png" id="4_yhxw7"]
 [ext_resource type="AudioStream" uid="uid://c1h7xorgrw541" path="res://Assets/SFX/Audio/glass_006.ogg" id="6_opfnp"]
 [ext_resource type="AudioStream" uid="uid://b468rem2e40ih" path="res://Assets/SFX/Audio/scratch_004.ogg" id="7_cp0ys"]
 
-[sub_resource type="Gradient" id="Gradient_erv1k"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1)
-metadata/_snap_enabled = true
+[sub_resource type="Gradient" id="Gradient_57qmd"]
+colors = PackedColorArray(1, 0, 1, 1, 0.3814458, 0.0010604167, 0.9688354, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
-gradient = SubResource("Gradient_erv1k")
-width = 640
-height = 360
-use_hdr = true
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yf5fn"]
+frequency = 0.25
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
+noise = SubResource("FastNoiseLite_yf5fn")
+color_ramp = SubResource("Gradient_57qmd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
 bg_color = Color(0.18039216, 0.61960787, 0.20784314, 1)
@@ -94,7 +89,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_g4v7s")
+texture = SubResource("NoiseTexture2D_g4v7s")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuLayer" unique_id=869513233]
 anchors_preset = 15
@@ -143,7 +138,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect2" type="ColorRect" parent="MenuLayer" unique_id=730276557]
+[node name="ColorRect2" type="TextureRect" parent="MenuLayer" unique_id=419802758]
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 160.0
@@ -151,6 +146,7 @@ offset_top = 60.0
 offset_right = -160.0
 offset_bottom = 180.0
 grow_horizontal = 2
+texture = ExtResource("4_yhxw7")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=232798629]
 stream = ExtResource("3_1ehe0")

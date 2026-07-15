@@ -1,6 +1,7 @@
 extends Node2D
 
 #Create variables
+var enemyid :String = ""
 @onready var block :PackedScene = preload("res://Scenes/block.tscn")
 @onready var audioplayer :AudioStreamPlayer2D = $Music
 @onready var lane_0 :Label = $"CanvasLayer/PlayArea/PanelContainer/VBoxContainer/VBoxContainer/Container/HBoxContainer2/Lane 0"
@@ -21,6 +22,24 @@ extends Node2D
 @onready var sticks := $Sticks
 @onready var countin :=$CanvasLayer/PreStart/PanelContainer/Label
 @onready var missSFX :=$Miss
+var enemyshake :float = 0.0
+@onready var enemy :AnimatedSprite2D = $EnemySprite
+var attack :bool = false
+var defend :bool = false
+var heal :bool = false
+@onready var playerhealth := $CanvasLayer/Control/PlayerHealth
+@onready var enemyhealth := $CanvasLayer/Control/EnemyHealth
+var enemy_action :String = ""
+var targetPlayer :float = Global.health
+var targetEnemy = 1000.0
+@onready var EnemyLabel = $CanvasLayer/Results2/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label
+@onready var PlayerLabel = $CanvasLayer/Results2/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label2
+var failed :bool = false
+
+@onready var hoversfx := $Hover
+@onready var selectsfx :AudioStreamPlayer2D = $Select
+
+var win :bool = false
 
 enum State {
 	Waiting,
@@ -41,6 +60,10 @@ var time_delay :float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	index = 0
+	charts.clear()
+	notes.clear()
+
 	Rhythm.reset()
 	$CatSprite.play("Idle "+Global.cat_color)
 	$EnemySprite.play()
@@ -48,19 +71,28 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	enemyhealth.value = lerpf(enemyhealth.value, targetEnemy, 2*delta)
+	playerhealth.value = lerpf(playerhealth.value, targetPlayer, 2*delta)
 	match state:
 		State.Action_Selection:
 			return
 		State.Waiting:
-			return
+			Rhythm.miss_shake = lerp(Rhythm.miss_shake, 0.0, 2*delta)
+			camera.offset.x += randf_range(-15*shake_scale*Rhythm.miss_shake,15*shake_scale*Rhythm.miss_shake)
 		State.Playing:
 			play_chart()
 			check_held_notes()
 			Rhythm.miss_shake = lerp(Rhythm.miss_shake, 0.0, 2*delta)
+			enemyshake = lerp(enemyshake, 0.0, 3*delta)
 			camera.offset.x += randf_range(-15*shake_scale*Rhythm.miss_shake,15*shake_scale*Rhythm.miss_shake)
+			if attack:
+				enemy.offset.x += randf_range(-15*0.1*enemyshake,15*0.1*enemyshake)
 			score_board.text = str(int(lerp(int(score_board.text), Rhythm.score, 6*delta)))
 			audioplayer.volume_linear = lerp(audioplayer.volume_linear, 1.0, delta)
 func load_song(path: String):
+	charts.clear()
+	index = 0
+	notes.clear()
 	var file = FileAccess.open(path, FileAccess.READ)
 	
 	#Error is file not found
@@ -132,6 +164,29 @@ func spawn_note(lane: int, note_time: float, hold_time :float):
 	BlockLayer.add_child(Block)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_page_down"):
+		targetEnemy-=100
+	if Input.is_action_just_pressed("ui_accept") && state == State.Waiting:
+		if win:
+			Global.health = targetPlayer
+			var appart1 = load("res://Scenes/appartment.tscn")
+			var app = appart1.instantiate()
+			$"../".add_child(app)
+			queue_free()
+			
+		elif $CanvasLayer/Results.visible:
+			selectsfx.play()
+			$CanvasLayer/Results.hide()
+			$CanvasLayer/Results2.show()
+			enemy_choice()
+			calculations()
+		else:
+			selectsfx.play()
+			$CanvasLayer/Results2.hide()
+			$"CanvasLayer/Action Select".show()
+			animation.play("RESET")
+			camera.offset.x = 320.0
+			state = State.Action_Selection
 	
 	if Input.is_action_just_pressed("Lane 0"):
 		handle_lane(0, lane_0, lane_0Part,"Lane 0")
@@ -162,7 +217,7 @@ func handle_lane(lane: int, lane_label:Label, lane_part :GPUParticles2D, laneNam
 	if time_diff >=140:
 		return
 	if time_diff > 75 and time_diff <140:
-		audioplayer.volume_linear = 0.75
+		audioplayer.volume_linear = 0.0
 		missSFX.pitch_scale = randf_range(0.9,1.1)
 		missSFX.play()
 		Rhythm.miss +=1
@@ -177,12 +232,14 @@ func handle_lane(lane: int, lane_label:Label, lane_part :GPUParticles2D, laneNam
 		Rhythm.goods +=1
 		Rhythm.combo+=1
 		Rhythm.score += 50*Rhythm.combo_mult
+		enemyshake = 0.75
 		lane_label.text = "GOOD"
 		lane_part.emitting = true
 		if duration > 0.0:
 			Rhythm.active_hold[lane] = entry
 			return
 	elif time_diff <= 20:
+		enemyshake=1.0
 		Rhythm.perfects +=1
 		Rhythm.combo+=1
 		Rhythm.score += 100*Rhythm.combo_mult
@@ -223,7 +280,6 @@ func complete_hold(lane :int):
 	var Duration :float =  Rhythm.active_hold[lane]["duration"]
 	var time_diff :float = abs(NoteTime+Duration-Rhythm.song_time)*1000.0
 	if time_diff > 20 and !Input.is_action_pressed("Lane "+str(lane)):
-		print("GOOD")
 		Rhythm.goods +=1
 		Rhythm.combo+=1
 		Rhythm.score += 50*Rhythm.combo_mult
@@ -232,7 +288,6 @@ func complete_hold(lane :int):
 		Rhythm.update_mult()
 		Rhythm.active_hold[lane] = null
 	elif time_diff <= 20 and !Input.is_action_pressed("Lane "+str(lane)):
-		print("PERFECT")
 		Rhythm.perfects +=1
 		Rhythm.combo+=1
 		Rhythm.score += 100*Rhythm.combo_mult
@@ -241,16 +296,23 @@ func complete_hold(lane :int):
 		Rhythm.update_mult()
 		Rhythm.active_hold[lane] = null
 	elif time_diff >=140:
-		print("MISS")
 		Rhythm.lane_queue[lane].pop_front()
 		note_node.queue_free()
 		Rhythm.update_mult()
 		Rhythm.active_hold[lane] = null
 
 func action_selected(Action :String):
+	defend = false
+	attack = false
+	heal = false
+	if Action == "Attack ":
+		attack = true
+	elif Action == "Defend ":
+		defend = true
+	elif Action == "Heal ":
+		heal = true
 	load_song("res://Assets/Tracks/"+Action+Global.Instrument+".JSON")
 	audioplayer.stream = load("res://Assets/Tracks/"+Action+Global.Instrument+".mp3")
-	print(charts)
 	notes = charts[instrument]
 	animation.play("Hide Action Select")
 	await get_tree().create_timer(1).timeout
@@ -262,26 +324,29 @@ func action_selected(Action :String):
 
 
 func _on_attack_pressed() -> void:
+	selectsfx.play()
 	action_selected("Attack ")
 
 
 func _on_defend_pressed() -> void:
+	selectsfx.play()
 	action_selected("Defend ")
 
 
 func _on_heal_pressed() -> void:
+	selectsfx.play()
 	action_selected("Heal ")
 
 func count_in():
+	enemy.offset = Vector2.ZERO
+	Rhythm.miss_shake = 0.0
+	enemyshake = 0.0
+	audioplayer.volume_linear = 1.0
+	Rhythm.reset()
+	failed = false
 	start_chart()
 	state = State.Playing
 	$CanvasLayer/PlayArea.show()
-	sticks.play()
-	countin.text = "1"
-	await get_tree().create_timer(120/bpm).timeout
-	sticks.play()
-	countin.text = "3"
-	await get_tree().create_timer(120/bpm).timeout
 	sticks.play()
 	countin.text = "1"
 	await get_tree().create_timer(60/bpm).timeout
@@ -300,8 +365,104 @@ func count_in():
 
 
 func _on_music_finished() -> void:
-	get_tree().change_scene_to_file("res://Scenes/end_rythm.tscn")
-	
+	results_screen()
 
 func results_screen():
-	pass
+	for child in BlockLayer.get_children():
+		child.queue_free()
+	$CanvasLayer/PlayArea.hide()
+	$CanvasLayer/Results.show()
+	state = State.Waiting
+	var accuracy :float = float(Rhythm.goods + Rhythm.perfects)/float(Rhythm.miss+Rhythm.goods+Rhythm.perfects)
+	if attack:
+		$"CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label".text = str(clampi(Rhythm.score-150,0,300))+" Damage"
+	elif accuracy >= 0.75:
+		$"CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label".text = str(accuracy*100)+"%: Pass"
+		failed = false
+	else:
+		$"CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label".text = str(accuracy*100)+" Fail"
+		failed = true
+	$CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label2.text = str(Rhythm.perfects)+" Perfect"
+	$CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label3.text = str(Rhythm.goods)+" Good"
+	$CanvasLayer/Results/MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/Label4.text = str(Rhythm.miss)+" Miss"
+	lane_0.text = ""
+	lane_1.text = ""
+	lane_2.text = ""
+	lane_3.text = ""
+	lane_4.text = ""
+
+func enemy_choice():
+	var choice = randi_range(1,4)
+	if choice == 4:
+		enemy_action = "Defend"
+	else:
+		enemy_action = "Attack"
+
+
+
+func calculations():
+	if enemy_action == "Defend" && defend && !failed:
+		EnemyLabel.text = "Enemy Defends"
+		PlayerLabel.text = "Do something"
+	elif enemy_action == "Defend" && defend && failed:
+		EnemyLabel.text = "Enemy Defends"
+		PlayerLabel.text = "Lucky... for now"
+	elif enemy_action == "Defend" && attack:
+		EnemyLabel.text = "Enemy Defends"
+		PlayerLabel.text = "Womp Womp"
+		Rhythm.miss_shake=0.25
+	elif enemy_action == "Defend" && heal && failed:
+		EnemyLabel.text = "Enemy Defends"
+		PlayerLabel.text = "You failure"
+	elif enemy_action == "Defend" && heal && !failed:
+		EnemyLabel.text = "Enemy Defends"
+		PlayerLabel.text = "You did it!"
+		targetPlayer+=175
+	elif enemy_action == "Attack" && heal && failed:
+		EnemyLabel.text = "Enemy Attacks"
+		PlayerLabel.text = "lol"
+		Rhythm.miss_shake=0.5
+		targetPlayer -=randi_range(150,250)
+	elif enemy_action == "Attack" && heal && !failed:
+		EnemyLabel.text = "Enemy Attacks"
+		PlayerLabel.text = "hmmmmm"
+		Rhythm.miss_shake=0.5
+		targetPlayer +=randi_range(150,225)
+	elif enemy_action == "Attack" && defend && failed:
+		EnemyLabel.text = "Enemy Attacks"
+		PlayerLabel.text = "Maybe... nah"
+		Rhythm.miss_shake=0.5
+		targetPlayer -=randi_range(150,250)
+	elif enemy_action == "Attack" && defend && !failed:
+		EnemyLabel.text = "Enemy Attacks"
+		PlayerLabel.text = "Good Job!"
+		Rhythm.miss_shake=0.5
+	elif enemy_action == "Attack" && attack:
+		EnemyLabel.text = "Enemy Attacks"
+		PlayerLabel.text = "Clash!"
+		Rhythm.miss_shake=0.5
+		targetPlayer-=randi_range(150,250)
+		targetEnemy -= clampi(Rhythm.score-150,0,300)
+	if targetPlayer <= 0:
+		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+	elif targetPlayer >1000.0:
+		targetPlayer = 1000.0
+	if targetEnemy <=0.0:
+		state = State.Action_Selection
+		EnemyLabel.text = "Enemy Defeated"
+		PlayerLabel.text = "Yippee"
+		win = true
+		state = State.Waiting
+		ID.defeated_enemies.append(enemyid)
+		print(ID.defeated_enemies)
+		
+
+func _on_attack_mouse_entered() -> void:
+	hoversfx.play()
+
+
+func _on_defend_mouse_entered() -> void:
+	hoversfx.play()
+
+func _on_heal_mouse_entered() -> void:
+	hoversfx.play()

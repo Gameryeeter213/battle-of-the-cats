@@ -2,10 +2,11 @@ extends CharacterBody2D
 
 @onready var Cat := $CatSprite
 @onready var game := preload("res://Scenes/rythm_demo.tscn")
-
+@onready var music :AudioStreamPlayer2D = $"../../Music"
 const SPEED = 115.0
 
-
+func _ready() -> void:
+	Cat.play("Idle " + Global.cat_color)
 
 func _physics_process(delta: float) -> void:
 	var directionx := Input.get_axis("ui_left", "ui_right")
@@ -31,4 +32,23 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		get_tree().change_scene_to_packed(game)
+		var tween = create_tween()
+		tween.tween_property(
+			music,
+			"volume_db",
+			-8.0,
+			0.4
+		)
+		await tween.finished
+		music.stop()
+		music.volume_db = 0
+		body.queue_free()
+		open_game(body.id)
+		
+
+func open_game(id : String):
+	var game1 = game.instantiate()
+	game1.enemyid = id
+	$"../../".add_child(game1)
+	
+	$"../".queue_free()

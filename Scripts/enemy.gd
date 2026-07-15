@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
 @onready var player = $"../Player"
+var id :String = ""
 
 func _ready() -> void:
 	$EnemySprite.play("Idle White")
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	set_movement_target(player.global_position)
 
-@export var movement_speed: float = 100.0
+@export var movement_speed: float = 25.0
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
 

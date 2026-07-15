@@ -9,7 +9,7 @@ extends Control
 ]
 
 @onready var music :AudioStreamPlayer2D = $"../Music"
-@onready var world := preload("res://Scenes/map.tscn")
+@onready var world := preload("res://Scenes/world.tscn")
 @onready var hoversfx :AudioStreamPlayer2D = $"../Hover"
 @onready var selectsfx :AudioStreamPlayer2D = $"../Select"
 @onready var arrowsfx := $ArrowSFX

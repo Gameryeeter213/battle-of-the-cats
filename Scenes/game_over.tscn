@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://bptino3lgx4at"]
+
+[ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="1_ojehl"]
+[ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="2_8fo1c"]
+
+[sub_resource type="Gradient" id="Gradient_57qmd"]
+offsets = PackedFloat32Array(0.63221157, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.5950902, 1.4800206e-06, 3.85046e-07, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yf5fn"]
+frequency = 0.0367
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
+noise = SubResource("FastNoiseLite_yf5fn")
+color_ramp = SubResource("Gradient_57qmd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(1, 1, 1, 0.39215687)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+line_spacing = 6.0
+paragraph_spacing = 3.0
+font = ExtResource("1_ojehl")
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ek8ke"]
+shader = ExtResource("2_8fo1c")
+shader_parameter/aberration_x = 0.01000004797499998
+shader_parameter/aberration_y = 0.01000004797499998
+shader_parameter/scanline_color = Color(0.047058824, 0.047058824, 0.047058824, 0.9137255)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 15.0
+shader_parameter/scanlines_intensity = 0.055
+shader_parameter/flicker_speed = 30.0
+shader_parameter/flicker_intensity = 0.0150000007125
+shader_parameter/color_offset = 0.5
+shader_parameter/blurVHS = 0.3
+shader_parameter/mixrate = 0.550000026125
+
+[node name="Game Over" type="Control" unique_id=27232405]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=242101155]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_g4v7s")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2086245304]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1644818694]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=390681367]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=1309847695]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2117133053]
+layout_mode = 2
+text = "You're rushed to the hospital and can't perform"
+label_settings = SubResource("LabelSettings_g4v7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1615567244]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=1030726829]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ojehl")
+text = "Retry?"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=358495738]
+visibility_layer = 4
+material = SubResource("ShaderMaterial_ek8ke")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
