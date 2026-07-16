@@ -1,0 +1,11 @@
+~ start
+You: Play drums for my band!
+Drum Kitty: If I can find my sticks.
+Drum Kitty: I used to play with fish sticks.
+Drum Kitty: But I'd end up eating them before shows.
+=> END
+
+~ again
+Drum Kitty: [wave amp=50.0 freq=5.0 connected=1]zzz[/wave]
+Drum Kitty: HUH oh yeah. I'll be there in a bit.
+=> END

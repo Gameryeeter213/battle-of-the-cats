@@ -91,7 +91,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_gymyn")
 }],
 "loop": 1,
-"name": &"Ide Black",
+"name": &"Idle Black",
 "speed": 5.0
 }, {
 "frames": [{
@@ -176,7 +176,7 @@ script = ExtResource("1_cvnsp")
 
 [node name="CatSprite" type="AnimatedSprite2D" parent="." unique_id=1420544614 groups=["Player"]]
 sprite_frames = SubResource("SpriteFrames_x3wgy")
-animation = &"Ide Black"
+animation = &"Idle Black"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1323688215 groups=["Player"]]
 position = Vector2(0, 7.75)

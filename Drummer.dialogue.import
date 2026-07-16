@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://boegqf1g614y2"
+path="res://.godot/imported/Drummer.dialogue-63c28785853895a8e4a6e1c14ff0d6c6.tres"
+
+[deps]
+
+source_file="res://Drummer.dialogue"
+dest_files=["res://.godot/imported/Drummer.dialogue-63c28785853895a8e4a6e1c14ff0d6c6.tres"]
+
+[params]
+
+defaults=true

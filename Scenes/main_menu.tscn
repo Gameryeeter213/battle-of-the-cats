@@ -3,21 +3,12 @@
 [ext_resource type="Script" uid="uid://rv8oirikr566" path="res://Scripts/main_menu.gd" id="1_28flt"]
 [ext_resource type="Shader" uid="uid://d12avjc6kfccm" path="res://Shaders/Default.gdshader" id="2_48xlc"]
 [ext_resource type="FontFile" uid="uid://b6lg4gj5dr14y" path="res://Assets/Fonts/RubikMonoOne-Regular.ttf" id="2_n45e2"]
+[ext_resource type="Shader" uid="uid://ccxr3ktgaiknx" path="res://Shaders/main_menu.gdshader" id="2_trj04"]
 [ext_resource type="AudioStream" uid="uid://df1luosy4kwg5" path="res://Assets/Music/Menu Music.mp3" id="3_1ehe0"]
 [ext_resource type="PackedScene" uid="uid://ceeyvlejn7ows" path="res://Scenes/character_selector.tscn" id="4_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://bcju2m751dfnj" path="res://Assets/Art/Logo.png" id="4_yhxw7"]
 [ext_resource type="AudioStream" uid="uid://c1h7xorgrw541" path="res://Assets/SFX/Audio/glass_006.ogg" id="6_opfnp"]
 [ext_resource type="AudioStream" uid="uid://b468rem2e40ih" path="res://Assets/SFX/Audio/scratch_004.ogg" id="7_cp0ys"]
-
-[sub_resource type="Gradient" id="Gradient_57qmd"]
-colors = PackedColorArray(1, 0, 1, 1, 0.3814458, 0.0010604167, 0.9688354, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yf5fn"]
-frequency = 0.25
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g4v7s"]
-noise = SubResource("FastNoiseLite_yf5fn")
-color_ramp = SubResource("Gradient_57qmd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
 bg_color = Color(0.18039216, 0.61960787, 0.20784314, 1)
@@ -31,6 +22,8 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce3w2"]
 bg_color = Color(0.117788054, 0.4196229, 0.13514918, 1)
@@ -44,6 +37,8 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n45e2"]
 bg_color = Color(0.15537375, 0.5343448, 0.17804745, 1)
@@ -57,6 +52,21 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="Gradient" id="Gradient_trj04"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.7620192)
+colors = PackedColorArray(0, 0, 0, 0.8235294, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf5fn"]
+gradient = SubResource("Gradient_trj04")
+width = 320
+height = 320
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("2_48xlc")
@@ -72,6 +82,37 @@ shader_parameter/color_offset = 0.5
 shader_parameter/blurVHS = 0.3
 shader_parameter/mixrate = 0.550000026125
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
+shader = ExtResource("2_trj04")
+shader_parameter/scrollAmount = Vector2(0.05, 0.05)
+shader_parameter/multiplierAmount = 0.10000000149012
+
+[sub_resource type="Gradient" id="Gradient_3gngh"]
+offsets = PackedFloat32Array(0.28125, 1)
+colors = PackedColorArray(0.011905349, 8.135601e-06, 0.079509236, 1, 0.6652489, 0.00033085077, 0.6652443, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d0u6y"]
+noise_type = 5
+seed = 18
+offset = Vector3(1000, 0, 0)
+fractal_type = 3
+fractal_octaves = 10
+fractal_lacunarity = 5.0
+fractal_gain = 0.15
+fractal_weighted_strength = 0.45
+fractal_ping_pong_strength = 4.115
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yf5fn"]
+width = 1280
+height = 720
+noise = SubResource("FastNoiseLite_d0u6y")
+color_ramp = SubResource("Gradient_3gngh")
+seamless = true
+seamless_blend_skirt = 0.565
+
 [node name="Main Menu" type="Control" unique_id=596047698]
 layout_mode = 3
 anchors_preset = 15
@@ -82,14 +123,6 @@ grow_vertical = 2
 script = ExtResource("1_28flt")
 
 [node name="MenuLayer" type="CanvasLayer" parent="." unique_id=1953414593]
-
-[node name="TextureRect" type="TextureRect" parent="MenuLayer" unique_id=1921394827]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("NoiseTexture2D_g4v7s")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuLayer" unique_id=869513233]
 anchors_preset = 15
@@ -128,6 +161,27 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ce3w2")
 theme_override_styles/hover = SubResource("StyleBoxFlat_n45e2")
 text = " ▶PLAY "
 
+[node name="ColorRect2" type="TextureRect" parent="MenuLayer" unique_id=419802758]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 160.0
+offset_top = 60.0
+offset_right = -160.0
+offset_bottom = 180.0
+grow_horizontal = 2
+texture = ExtResource("4_yhxw7")
+
+[node name="TextureRect" type="TextureRect" parent="MenuLayer/ColorRect2" unique_id=1958668170]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_yf5fn")
+
 [node name="ColorRect" type="ColorRect" parent="MenuLayer" unique_id=1689248440]
 visibility_layer = 4
 material = SubResource("ShaderMaterial_1ehe0")
@@ -138,15 +192,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect2" type="TextureRect" parent="MenuLayer" unique_id=419802758]
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 160.0
-offset_top = 60.0
-offset_right = -160.0
-offset_bottom = 180.0
-grow_horizontal = 2
-texture = ExtResource("4_yhxw7")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=320660453]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_57qmd")
+position = Vector2(331, 179)
+texture = SubResource("NoiseTexture2D_yf5fn")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=232798629]
 stream = ExtResource("3_1ehe0")

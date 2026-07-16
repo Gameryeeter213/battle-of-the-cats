@@ -1,0 +1,7 @@
+~ pass
+Dog: Fine I guess I'll let you play.
+=> END
+
+~ fail
+Dog: HA. Comeback when you have a real band kid
+=> END

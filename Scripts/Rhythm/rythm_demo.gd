@@ -1,6 +1,7 @@
 extends Node2D
 
 #Create variables
+var ReturnScene :String = "res://Scenes/appartment.tscn"
 var enemyid :String = ""
 @onready var block :PackedScene = preload("res://Scenes/block.tscn")
 @onready var audioplayer :AudioStreamPlayer2D = $Music
@@ -63,6 +64,7 @@ func _ready() -> void:
 	index = 0
 	charts.clear()
 	notes.clear()
+	animation.play("RESET")
 
 	Rhythm.reset()
 	$CatSprite.play("Idle "+Global.cat_color)
@@ -169,9 +171,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept") && state == State.Waiting:
 		if win:
 			Global.health = targetPlayer
-			var appart1 = load("res://Scenes/appartment.tscn")
-			var app = appart1.instantiate()
-			$"../".add_child(app)
+			var room = load(ReturnScene)
+			var room2 = room.instantiate()
+			$"../".add_child(room2)
 			queue_free()
 			
 		elif $CanvasLayer/Results.visible:
@@ -454,7 +456,6 @@ func calculations():
 		win = true
 		state = State.Waiting
 		ID.defeated_enemies.append(enemyid)
-		print(ID.defeated_enemies)
 		
 
 func _on_attack_mouse_entered() -> void:

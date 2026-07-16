@@ -38,8 +38,6 @@ func _ready() -> void:
 	for i in range(len(sprites)):
 		sprites[i].play("Idle")
 	apply_focus()
-	print(index)
-
 
 func _process(delta: float) -> void:
 	for i in sprites.size():
@@ -79,6 +77,8 @@ func apply_focus() -> void:
 func _on_button_pressed() -> void:
 	selectsfx.play()
 	Global.cat_color = characters[index]
+	characters.remove_at(index)
+	Global.characters = characters
 	var tween = create_tween()
 	tween.tween_property(
 		music,

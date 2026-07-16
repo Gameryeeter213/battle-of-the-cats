@@ -1,0 +1,8 @@
+~ start
+You: Will you play in my band?
+Guitar Kitty: I'll be there after I tune up.
+=> END
+
+~ again
+Guitar Kitty: Let me practice will ya?
+=> END

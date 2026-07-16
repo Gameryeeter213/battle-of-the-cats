@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bsp4jquxjtbiu"
+path="res://.godot/imported/Venue.dialogue-e5f1ee246e6d1b8b112e5e98ae879657.tres"
+
+[deps]
+
+source_file="res://Venue.dialogue"
+dest_files=["res://.godot/imported/Venue.dialogue-e5f1ee246e6d1b8b112e5e98ae879657.tres"]
+
+[params]
+
+defaults=true

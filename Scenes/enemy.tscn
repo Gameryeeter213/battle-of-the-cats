@@ -62,4 +62,6 @@ shape = SubResource("RectangleShape2D_po0sg")
 wait_time = 0.5
 autostart = true
 
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1005282424]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

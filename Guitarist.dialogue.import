@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c3p4xpu46rdrn"
+path="res://.godot/imported/Guitarist.dialogue-e0eb5b132c6ff074f357384c8d5a09e2.tres"
+
+[deps]
+
+source_file="res://Guitarist.dialogue"
+dest_files=["res://.godot/imported/Guitarist.dialogue-e0eb5b132c6ff074f357384c8d5a09e2.tres"]
+
+[params]
+
+defaults=true
